@@ -1,5 +1,6 @@
 import pygame, sys
 from grid import Grid
+from pieces import *
 
 pygame.init()
 
@@ -14,11 +15,8 @@ clock = pygame.time.Clock()
 # Game Loop
 running = True
 
-game_grid = Grid(10, 20)
-
-game_grid.grid[0][1] = 1
-
-game_grid.print_grid()
+game_grid = Grid(10, 20, 30)
+piece = Spiece()
 
 while running:
     for event in pygame.event.get():
@@ -29,4 +27,5 @@ while running:
     # RGB = Red, Green, Blue
     screen.fill((10, 10, 10))
     game_grid.draw_grid(screen)
+    piece.draw_shape(screen)
     pygame.display.update()
