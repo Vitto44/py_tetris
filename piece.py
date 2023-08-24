@@ -8,6 +8,17 @@ class Piece:
         self.rotation = 0
         self.cells = {}
 
+    def move(self, direction):
+        if direction == "down":
+            for cell in self.cells[self.rotation]:
+                cell[1] += 1
+        elif direction == "left":
+            for cell in self.cells[self.rotation]:
+                cell[0] -= 1
+        elif direction == "right":
+            for cell in self.cells[self.rotation]:
+                cell[0] += 1
+
     def draw_shape(self, screeen):
         for cell in self.cells[self.rotation]:
             pygame.draw.rect(

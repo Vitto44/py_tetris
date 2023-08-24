@@ -2,9 +2,9 @@ import pygame
 
 
 class Grid:
-    def __init__(self, x=10, y=20, cell_size=30):
-        self.width = x
-        self.height = y
+    def __init__(self, width=10, height=20, cell_size=30):
+        self.width = width
+        self.height = height
         self.cell_size = cell_size
         self.grid = [[0 for _ in range(self.width)] for _ in range(self.height)]
 
@@ -17,7 +17,6 @@ class Grid:
             for j in range(self.width):
                 pygame.draw.rect(
                     screen,
-                    # if screen is 0 black, else green
                     (200, 200, 200),
                     (
                         j * self.cell_size + 5,
@@ -25,5 +24,5 @@ class Grid:
                         self.cell_size - 5,
                         self.cell_size - 5,
                     ),
-                    1 if self.grid[i][j] == 0 else 7,
+                    1,
                 )

@@ -1,6 +1,5 @@
-import pygame, sys
-from grid import Grid
-from pieces import *
+import pygame
+from game import Game
 
 pygame.init()
 
@@ -11,21 +10,19 @@ screen = pygame.display.set_mode((300, 600))
 pygame.display.set_caption("Tetris")
 clock = pygame.time.Clock()
 
+game = Game()
 
 # Game Loop
 running = True
-
-game_grid = Grid(10, 20, 30)
-piece = Spiece()
 
 while running:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             running = False
 
-    clock.tick(60)
     # RGB = Red, Green, Blue
     screen.fill((10, 10, 10))
-    game_grid.draw_grid(screen)
-    piece.draw_shape(screen)
+    game.draw(screen)
+
     pygame.display.update()
+    clock.tick(60)
