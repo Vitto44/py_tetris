@@ -12,6 +12,14 @@ class Grid:
         for row in self.grid:
             print(row)
 
+    def is_valid(self, piece):
+        for cell in piece.cells[piece.rotation]:
+            if cell[0] < 0 or cell[0] >= self.width or cell[1] >= self.height:
+                return False
+            if self.grid[cell[1]][cell[0]] != 0:
+                return False
+        return True
+
     def draw_grid(self, screen):
         for i in range(self.height):
             for j in range(self.width):

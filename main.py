@@ -22,12 +22,23 @@ while running:
         if event.type == pygame.KEYDOWN:
             if event.key == pygame.K_LEFT:
                 game.current_piece.move("left")
+
+                if not game.grid.is_valid(game.current_piece):
+                    game.current_piece.move("right")
             if event.key == pygame.K_RIGHT:
                 game.current_piece.move("right")
+                if not game.grid.is_valid(game.current_piece):
+                    game.current_piece.move("left")
+
             if event.key == pygame.K_DOWN:
                 game.current_piece.move("down")
+                if not game.grid.is_valid(game.current_piece):
+                    game.current_piece.move("up")
+
             if event.key == pygame.K_UP:
                 game.current_piece.rotate()
+                if not game.grid.is_valid(game.current_piece):
+                    game.current_piece.rotate_back()
 
     # RGB = Red, Green, Blue
     screen.fill((10, 10, 10))
