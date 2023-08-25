@@ -19,6 +19,15 @@ while running:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             running = False
+        if event.type == pygame.KEYDOWN:
+            if event.key == pygame.K_LEFT:
+                game.current_piece.move("left")
+            if event.key == pygame.K_RIGHT:
+                game.current_piece.move("right")
+            if event.key == pygame.K_DOWN:
+                game.current_piece.move("down")
+            if event.key == pygame.K_UP:
+                game.current_piece.rotate()
 
     # RGB = Red, Green, Blue
     screen.fill((10, 10, 10))

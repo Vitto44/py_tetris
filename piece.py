@@ -19,6 +19,10 @@ class Piece:
             for cell in self.cells[self.rotation]:
                 cell[0] += 1
 
+    def rotate(self):
+        self.rotation = (self.rotation + 1) % len(self.cells)
+        print(self.rotation)
+
     def draw_shape(self, screeen):
         for cell in self.cells[self.rotation]:
             pygame.draw.rect(
