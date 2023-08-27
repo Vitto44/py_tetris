@@ -12,6 +12,9 @@ clock = pygame.time.Clock()
 
 game = Game()
 
+GAME_UPDATE = pygame.USEREVENT
+pygame.time.set_timer(GAME_UPDATE, 700)
+
 # Game Loop
 running = True
 
@@ -21,24 +24,15 @@ while running:
             running = False
         if event.type == pygame.KEYDOWN:
             if event.key == pygame.K_LEFT:
-                game.current_piece.move("left")
-                if not game.grid.is_valid(game.current_piece):
-                    game.current_piece.move("right")
-
+                game.move_piece("left")
             if event.key == pygame.K_RIGHT:
-                game.current_piece.move("right")
-                if not game.grid.is_valid(game.current_piece):
-                    game.current_piece.move("left")
-
+                game.move_piece("right")
             if event.key == pygame.K_DOWN:
-                game.current_piece.move("down")
-                if not game.grid.is_valid(game.current_piece):
-                    game.current_piece.move("up")
-
+                game.move_piece("down")
             if event.key == pygame.K_UP:
-                game.current_piece.rotate()
-                if not game.grid.is_valid(game.current_piece):
-                    game.current_piece.rotate_back()
+                game.rotate_piece()
+        if event.type == GAME_UPDATE:
+            game.move_piece("down")
 
     # RGB = Red, Green, Blue
     screen.fill((10, 10, 10))

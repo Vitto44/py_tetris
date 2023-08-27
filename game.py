@@ -26,3 +26,14 @@ class Game:
     def draw(self, screen):
         self.grid.draw_grid(screen)
         self.current_piece.draw_shape(screen)
+
+    def update_game_grid(self):
+        self.grid.update_grid(self.current_piece)
+        self.current_piece = self.next_piece
+        self.next_piece = self.get_piece()
+
+    def move_piece(self, direction):
+        self.current_piece.move(direction, self.grid.is_valid, self.update_game_grid)
+
+    def rotate_piece(self):
+        self.current_piece.rotate(self.grid.is_valid)
