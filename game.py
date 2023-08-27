@@ -7,7 +7,15 @@ class Game:
     def __init__(self):
         # self.clock = clock
         self.grid = Grid(10, 20, 30)
-        self.pieces = [Ipiece(), Jpiece(), Lpiece(), Spiece(), Tpiece()]
+        self.pieces = [
+            Ipiece(),
+            Jpiece(),
+            Lpiece(),
+            Opiece(),
+            Spiece(),
+            Tpiece(),
+            Zpiece(),
+        ]
         self.current_piece = self.get_piece()
         self.next_piece = self.get_piece()
 

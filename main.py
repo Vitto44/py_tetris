@@ -22,9 +22,9 @@ while running:
         if event.type == pygame.KEYDOWN:
             if event.key == pygame.K_LEFT:
                 game.current_piece.move("left")
-
                 if not game.grid.is_valid(game.current_piece):
                     game.current_piece.move("right")
+
             if event.key == pygame.K_RIGHT:
                 game.current_piece.move("right")
                 if not game.grid.is_valid(game.current_piece):

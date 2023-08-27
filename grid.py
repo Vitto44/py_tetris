@@ -14,9 +14,9 @@ class Grid:
 
     def is_valid(self, piece):
         for cell in piece.cells[piece.rotation]:
-            if cell[0] < 0 or cell[0] >= self.width or cell[1] >= self.height:
+            if cell.x < 0 or cell.x >= self.width or cell.y >= self.height:
                 return False
-            if self.grid[cell[1]][cell[0]] != 0:
+            if self.grid[cell.y][cell.x] != 0:
                 return False
         return True
 

@@ -7,20 +7,18 @@ class Piece:
         self.cell_size = cell_size
         self.rotation = 0
         self.cells = {}
+        self.row_offset = 0
+        self.column_offset = 0
 
     def move(self, direction):
         if direction == "down":
-            for cell in self.cells[self.rotation]:
-                cell[1] += 1
+            self.row_offset += 1
         elif direction == "left":
-            for cell in self.cells[self.rotation]:
-                cell[0] -= 1
+            self.column_offset -= 1
         elif direction == "right":
-            for cell in self.cells[self.rotation]:
-                cell[0] += 1
+            self.column_offset += 1
         elif direction == "up":
-            for cell in self.cells[self.rotation]:
-                cell[1] -= 1
+            self.row_offset -= 1
 
     def rotate(self):
         self.rotation = (self.rotation + 1) % len(self.cells)
@@ -34,8 +32,8 @@ class Piece:
                 screeen,
                 (0, 255, 0),
                 (
-                    cell[0] * self.cell_size + 5,
-                    cell[1] * self.cell_size + 5,
+                    (cell.x + self.column_offset) * self.cell_size + 5,
+                    (cell.y + self.row_offset) * self.cell_size + 5,
                     self.cell_size - 5,
                     self.cell_size - 5,
                 ),
