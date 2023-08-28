@@ -4,7 +4,7 @@ from game import Game
 pygame.init()
 
 # Create the screen
-screen = pygame.display.set_mode((300, 600))
+screen = pygame.display.set_mode((600, 600))
 
 # Title and Icon
 pygame.display.set_caption("Tetris")
@@ -13,7 +13,7 @@ clock = pygame.time.Clock()
 game = Game()
 
 GAME_UPDATE = pygame.USEREVENT
-pygame.time.set_timer(GAME_UPDATE, 200)
+pygame.time.set_timer(GAME_UPDATE, 400)
 
 # Game Loop
 running = True
@@ -22,19 +22,20 @@ while running:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             running = False
-        if game.game_over:
-            running = False
+
         if event.type == pygame.KEYDOWN:
-            if event.key == pygame.K_LEFT:
+            if event.key == pygame.K_LEFT and not game.grid.game_over:
                 game.move_piece("left")
-            if event.key == pygame.K_RIGHT:
+            if event.key == pygame.K_RIGHT and not game.grid.game_over:
                 game.move_piece("right")
-            if event.key == pygame.K_DOWN:
+            if event.key == pygame.K_DOWN and not game.grid.game_over:
                 game.move_piece("down")
-            if event.key == pygame.K_UP:
+            if event.key == pygame.K_UP and not game.grid.game_over:
                 game.rotate_piece()
         if event.type == GAME_UPDATE:
             game.move_piece("down")
+        if game.grid.game_over:
+            running = False
 
     # RGB = Red, Green, Blue
     screen.fill((10, 10, 10))

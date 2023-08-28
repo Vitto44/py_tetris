@@ -6,7 +6,7 @@ class Grid:
         self.width = width
         self.height = height
         self.cell_size = cell_size
-        self.full_grid = False
+        self.game_over = False
         self.grid = [[0 for _ in range(self.width)] for _ in range(self.height)]
 
     def print_grid(self):
@@ -17,9 +17,9 @@ class Grid:
         for cell in piece.cells[piece.rotation]:
             x = cell.x + piece.position_x
             y = cell.y + piece.position_y
-            # check for game over
+            # check for full grid
             if self.grid[0][x] != 0:
-                self.full_grid = True
+                self.game_over = True
             if (
                 x < 0
                 or x >= self.width
@@ -39,14 +39,14 @@ class Grid:
         # If Not the new piece that is of the same type as the previous piece will have same position as the previous piece
         piece.position_y = 0
         piece.position_x = 0
-        self.check_full_lines()
 
-    def check_full_lines(self):
+    def check_grid_for_points(self):
         lines_to_remove = []
         for i in range(self.height):
             if 0 not in self.grid[i]:
                 lines_to_remove.append(i)
         self.remove_lines(lines_to_remove)
+        return len(lines_to_remove)
 
     def remove_lines(self, lines_to_remove):
         for index in lines_to_remove:
