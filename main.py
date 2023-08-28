@@ -13,7 +13,7 @@ clock = pygame.time.Clock()
 game = Game()
 
 GAME_UPDATE = pygame.USEREVENT
-pygame.time.set_timer(GAME_UPDATE, 700)
+pygame.time.set_timer(GAME_UPDATE, 200)
 
 # Game Loop
 running = True
@@ -21,6 +21,8 @@ running = True
 while running:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
+            running = False
+        if game.game_over:
             running = False
         if event.type == pygame.KEYDOWN:
             if event.key == pygame.K_LEFT:
