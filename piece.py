@@ -36,10 +36,10 @@ class Piece:
                 screeen,
                 (0, 255, 0),
                 (
-                    (cell.x + self.position_x) * self.cell_size + 5,
-                    (cell.y + self.position_y) * self.cell_size + 5,
+                    (cell.x + self.position_x) * self.cell_size + 15,
+                    (cell.y + self.position_y) * self.cell_size + 15,
                     self.cell_size - 5,
                     self.cell_size - 5,
                 ),
-                7,
+                10,
             )

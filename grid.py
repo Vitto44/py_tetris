@@ -18,8 +18,9 @@ class Grid:
             x = cell.x + piece.position_x
             y = cell.y + piece.position_y
             # check for full grid
-            if self.grid[0][x] != 0:
+            if x < self.width and self.grid[0][x] != 0:
                 self.game_over = True
+                return False
             if (
                 x < 0
                 or x >= self.width
@@ -56,14 +57,26 @@ class Grid:
     def draw_grid(self, screen):
         for i in range(self.height):
             for j in range(self.width):
-                pygame.draw.rect(
-                    screen,
-                    (200, 200, 200) if self.grid[i][j] == 0 else (255, 255, 255),
-                    (
-                        j * self.cell_size + 5,
-                        i * self.cell_size + 5,
-                        self.cell_size - 5,
-                        self.cell_size - 5,
-                    ),
-                    1 if self.grid[i][j] == 0 else 7,
-                )
+                # draw circle if grid is 0
+                if self.grid[i][j] == 0:
+                    pygame.draw.circle(
+                        screen,
+                        (0, 255, 0),
+                        (
+                            j * self.cell_size + self.cell_size // 2 + 15,
+                            i * self.cell_size + self.cell_size // 2 + 15,
+                        ),
+                        1,
+                    )
+                else:
+                    pygame.draw.rect(
+                        screen,
+                        (0, 255, 0),
+                        (
+                            j * self.cell_size + 15,
+                            i * self.cell_size + 15,
+                            self.cell_size - 5,
+                            self.cell_size - 5,
+                        ),
+                        10,
+                    )

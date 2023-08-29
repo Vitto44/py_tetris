@@ -24,6 +24,12 @@ class Game:
         piece = random.choice(self.pieces)
         return piece
 
+    def reset(self):
+        self.grid = Grid(10, 20, 30)
+        self.score = 0
+        self.current_piece = self.get_piece()
+        self.next_piece = self.get_piece()
+
     def draw(self, screen):
         self.grid.draw_grid(screen)
         self.current_piece.draw_shape(screen)
