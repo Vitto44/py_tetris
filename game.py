@@ -33,6 +33,7 @@ class Game:
     def draw(self, screen):
         self.grid.draw_grid(screen)
         self.current_piece.draw_shape(screen)
+        self.next_piece.draw_shape(screen, next_piece=True)
 
     def update_game_grid(self):
         self.grid.update_grid(self.current_piece)

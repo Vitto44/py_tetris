@@ -48,6 +48,8 @@ while running:
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_SPACE:
                     game.reset()
+                if event.key == pygame.K_q:
+                    running = False
         if event.type == GAME_UPDATE and not game.grid.game_over:
             game.move_piece("down")
 
@@ -64,8 +66,6 @@ while running:
     )
     # NEXT PIECE
     screen.blit(next_piece_surface, ((900 - next_piece_surface.get_width()) // 2, 350))
-    # NEXT PIECE ILLUSTRATION
-    pygame.draw.rect(screen, (0, 255, 0), next_piece_rect, 1)
     # GAME OVER
     if game.grid.game_over:
         screen.blit(

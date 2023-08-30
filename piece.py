@@ -30,14 +30,16 @@ class Piece:
         if not check_function(self):
             self.rotation = (self.rotation - 1) % len(self.cells)
 
-    def draw_shape(self, screeen):
+    def draw_shape(self, screeen, next_piece=False):
         for cell in self.cells[self.rotation]:
             pygame.draw.rect(
                 screeen,
                 (0, 255, 0),
                 (
-                    (cell.x + self.position_x) * self.cell_size + 15,
-                    (cell.y + self.position_y) * self.cell_size + 15,
+                    (cell.x + self.position_x) * self.cell_size
+                    + (15 if not next_piece else 290),
+                    (cell.y + self.position_y) * self.cell_size
+                    + (15 if not next_piece else 400),
                     self.cell_size - 5,
                     self.cell_size - 5,
                 ),
