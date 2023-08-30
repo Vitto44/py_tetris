@@ -12,7 +12,10 @@ title_surface = title_font.render("Tetris", True, (0, 255, 0))
 score_surface = normal_text_fond.render("Score: ", True, (0, 255, 0))
 game_over_surface = game_over_font.render("GAME OVER", True, (0, 255, 0))
 next_piece_surface = normal_text_fond.render("Next Piece: ", True, (0, 255, 0))
-next_piece_rect = next_piece_surface.get_rect(center=(900 // 2, 400))
+restart_or_quit_surface = normal_text_fond.render(
+    "Press SPACE to restart or Q to quit", True, (0, 255, 0)
+)
+game_over_rect = pygame.Rect(50, 140, 500, 230)
 
 # Create the screen
 screen = pygame.display.set_mode((600, 620))
@@ -24,7 +27,7 @@ clock = pygame.time.Clock()
 game = Game()
 
 GAME_UPDATE = pygame.USEREVENT
-pygame.time.set_timer(GAME_UPDATE, 500)
+pygame.time.set_timer(GAME_UPDATE, 100)
 
 # Game Loop
 running = True
@@ -44,7 +47,6 @@ while running:
             if event.key == pygame.K_UP and not game.grid.game_over:
                 game.rotate_piece()
         if game.grid.game_over:
-            print("GAME OVER")
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_SPACE:
                     game.reset()
@@ -66,13 +68,18 @@ while running:
     )
     # NEXT PIECE
     screen.blit(next_piece_surface, ((900 - next_piece_surface.get_width()) // 2, 350))
+    # ACUTAL GAME SCREEN
+    game.draw(screen)
     # GAME OVER
     if game.grid.game_over:
+        pygame.draw.rect(screen, (10, 10, 10), game_over_rect)
         screen.blit(
             game_over_surface, ((600 - game_over_surface.get_width()) // 2, 200)
         )
-
-    game.draw(screen)
+        screen.blit(
+            restart_or_quit_surface,
+            ((600 - restart_or_quit_surface.get_width()) // 2, 300),
+        )
 
     pygame.display.update()
     clock.tick(60)
