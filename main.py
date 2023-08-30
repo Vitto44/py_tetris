@@ -3,10 +3,11 @@ from game import Game
 
 pygame.init()
 
+
 # Add Font
-title_font = pygame.font.SysFont("minecraft.ttf", 80)
-normal_text_fond = pygame.font.SysFont("minecraft.ttf", 30)
-game_over_font = pygame.font.SysFont("minecraft.ttf", 100)
+title_font = pygame.font.Font("fonts/Minecraft.ttf", 70)
+normal_text_fond = pygame.font.Font("fonts/Minecraft.ttf", 30)
+game_over_font = pygame.font.Font("fonts/Minecraft.ttf", 80)
 
 title_surface = title_font.render("Tetris", True, (0, 255, 0))
 score_surface = normal_text_fond.render("Score: ", True, (0, 255, 0))
@@ -18,7 +19,9 @@ restart_or_quit_surface = normal_text_fond.render(
 game_over_rect = pygame.Rect(50, 140, 500, 230)
 
 # Create the screen
-screen = pygame.display.set_mode((600, 620))
+screen_width = 600
+screen_height = 620
+screen = pygame.display.set_mode((screen_width, screen_height))
 
 # Title and Icon
 pygame.display.set_caption("Tetris")
@@ -27,7 +30,7 @@ clock = pygame.time.Clock()
 game = Game()
 
 GAME_UPDATE = pygame.USEREVENT
-pygame.time.set_timer(GAME_UPDATE, 100)
+pygame.time.set_timer(GAME_UPDATE, 700)
 
 # Game Loop
 running = True
@@ -58,27 +61,36 @@ while running:
     # RGB = Red, Green, Blue
     screen.fill((10, 10, 10))
     # TITLE
-    screen.blit(title_surface, ((900 - title_surface.get_width()) // 2, 20))
+    screen.blit(
+        title_surface, (((screen_width * 1.5) - title_surface.get_width()) // 2, 20)
+    )
     # SCORE
-    screen.blit(score_surface, ((900 - score_surface.get_width()) // 2, 150))
+    screen.blit(
+        score_surface, (((screen_width * 1.5) - score_surface.get_width()) // 2, 150)
+    )
     # SCORE NUMBER
     normal_text_surface = normal_text_fond.render(str(game.score), True, (0, 255, 0))
     screen.blit(
-        normal_text_surface, ((900 - normal_text_surface.get_width()) // 2, 180)
+        normal_text_surface,
+        (((screen_width * 1.5) - normal_text_surface.get_width()) // 2, 200),
     )
     # NEXT PIECE
-    screen.blit(next_piece_surface, ((900 - next_piece_surface.get_width()) // 2, 350))
+    screen.blit(
+        next_piece_surface,
+        (((screen_width * 1.5) - next_piece_surface.get_width()) // 2, 350),
+    )
     # ACUTAL GAME SCREEN
     game.draw(screen)
     # GAME OVER
     if game.grid.game_over:
         pygame.draw.rect(screen, (10, 10, 10), game_over_rect)
         screen.blit(
-            game_over_surface, ((600 - game_over_surface.get_width()) // 2, 200)
+            game_over_surface,
+            ((screen_width - game_over_surface.get_width()) // 2, 200),
         )
         screen.blit(
             restart_or_quit_surface,
-            ((600 - restart_or_quit_surface.get_width()) // 2, 300),
+            ((screen_width - restart_or_quit_surface.get_width()) // 2, 300),
         )
 
     pygame.display.update()

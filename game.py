@@ -1,6 +1,7 @@
 from grid import Grid
 from pieces import *
 import random
+import pygame
 
 
 class Game:
@@ -19,6 +20,8 @@ class Game:
         ]
         self.current_piece = self.get_piece()
         self.next_piece = self.get_piece()
+        pygame.mixer.music.load("audio/theme_song.mp3")
+        pygame.mixer.music.play(-1)
 
     def get_piece(self):
         piece = random.choice(self.pieces)
