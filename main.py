@@ -16,7 +16,7 @@ next_piece_surface = normal_text_fond.render("Next Piece: ", True, (0, 255, 0))
 restart_or_quit_surface = normal_text_fond.render(
     "Press SPACE to restart or Q to quit", True, (0, 255, 0)
 )
-game_over_rect = pygame.Rect(50, 140, 500, 230)
+game_over_rect = pygame.Rect(30, 140, 540, 230)
 
 # Create the screen
 screen_width = 600
@@ -30,7 +30,7 @@ clock = pygame.time.Clock()
 game = Game()
 
 GAME_UPDATE = pygame.USEREVENT
-pygame.time.set_timer(GAME_UPDATE, 700)
+pygame.time.set_timer(GAME_UPDATE, 600)
 
 # Game Loop
 running = True

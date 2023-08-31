@@ -25,7 +25,19 @@ class Game:
         pygame.mixer.music.play(-1)
 
     def get_piece(self):
+        # choose random and pop out of list
+        if (len(self.pieces)) == 0:
+            self.pieces = [
+                Ipiece(),
+                Jpiece(),
+                Lpiece(),
+                Opiece(),
+                Spiece(),
+                Tpiece(),
+                Zpiece(),
+            ]
         piece = random.choice(self.pieces)
+        self.pieces.remove(piece)
         return piece
 
     def reset(self):
@@ -33,6 +45,9 @@ class Game:
         self.score = 0
         self.current_piece = self.get_piece()
         self.next_piece = self.get_piece()
+        # if they are the same piece, get a new one
+        if self.current_piece == self.next_piece:
+            self.next_piece = self.get_piece()
         pygame.mixer.music.play(-1)
 
     def draw(self, screen):
@@ -58,6 +73,7 @@ class Game:
             self.score += 500
         elif lines_removed == 4:
             self.score += 800
+        pygame.time.set_timer(pygame.USEREVENT, 600 - (self.score // 10))
 
     def move_piece(self, direction):
         self.current_piece.move(direction, self.grid.is_valid, self.update_game_grid)
