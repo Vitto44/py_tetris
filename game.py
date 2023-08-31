@@ -6,7 +6,6 @@ import pygame
 
 class Game:
     def __init__(self):
-        # self.clock = clock
         self.grid = Grid(10, 20, 30)
         self.score = 0
         self.pieces = [
@@ -20,6 +19,8 @@ class Game:
         ]
         self.current_piece = self.get_piece()
         self.next_piece = self.get_piece()
+        self.clear_lines_sound = pygame.mixer.Sound("audio/pixel_effect.mp3")
+        self.game_over_sound = pygame.mixer.Sound("audio/game_over.mp3")
         pygame.mixer.music.load("audio/theme_song.mp3")
         pygame.mixer.music.play(-1)
 
@@ -32,6 +33,7 @@ class Game:
         self.score = 0
         self.current_piece = self.get_piece()
         self.next_piece = self.get_piece()
+        pygame.mixer.music.play(-1)
 
     def draw(self, screen):
         self.grid.draw_grid(screen)
@@ -44,6 +46,7 @@ class Game:
         self.current_piece = self.next_piece
         self.next_piece = self.get_piece()
         if lines_removed:
+            self.clear_lines_sound.play()
             self.update_score(lines_removed)
 
     def update_score(self, lines_removed):
@@ -58,6 +61,9 @@ class Game:
 
     def move_piece(self, direction):
         self.current_piece.move(direction, self.grid.is_valid, self.update_game_grid)
+        if self.grid.game_over:
+            self.game_over_sound.play()
+            pygame.mixer.music.stop()
 
     def rotate_piece(self):
         self.current_piece.rotate(self.grid.is_valid)
