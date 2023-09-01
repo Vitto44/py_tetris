@@ -30,7 +30,7 @@ clock = pygame.time.Clock()
 game = Game()
 
 GAME_UPDATE = pygame.USEREVENT
-pygame.time.set_timer(GAME_UPDATE, 600)
+pygame.time.set_timer(GAME_UPDATE, 300)
 
 # Game Loop
 running = True

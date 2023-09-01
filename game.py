@@ -1,3 +1,4 @@
+import json
 from grid import Grid
 from pieces import *
 import random
@@ -75,11 +76,36 @@ class Game:
             self.score += 800
         pygame.time.set_timer(pygame.USEREVENT, 600 - (self.score // 10))
 
+    def rotate_piece(self):
+        self.current_piece.rotate(self.grid.is_valid)
+
     def move_piece(self, direction):
         self.current_piece.move(direction, self.grid.is_valid, self.update_game_grid)
         if self.grid.game_over:
             self.game_over_sound.play()
             pygame.mixer.music.stop()
+            self.update_file_scores()
 
-    def rotate_piece(self):
-        self.current_piece.rotate(self.grid.is_valid)
+    def update_file_scores(self):
+        # open file, if not one, create one
+
+        try:
+            f = open("scores.txt", "r+")
+        except FileNotFoundError:
+            f = open("scores.txt", "w+")
+        # write top 3 scores to file
+        scores = []
+        for line in f:
+            print(line)
+            scores.append(int(line))
+        scores.append(self.score)
+        scores.sort(reverse=True)
+        # delete all lines from f
+        f.seek(0)
+        f.truncate()
+
+        # write top 3 scores
+        for i in range(3):
+            if len(scores) > i:
+                f.write(str(scores[i]) + "\n")
+        f.close()
