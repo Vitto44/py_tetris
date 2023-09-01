@@ -39,7 +39,7 @@ class Piece:
                     (cell.x + self.position_x) * self.cell_size
                     + (15 if not next_piece else 290),
                     (cell.y + self.position_y) * self.cell_size
-                    + (15 if not next_piece else 400),
+                    + (15 if not next_piece else 470),
                     self.cell_size - 5,
                     self.cell_size - 5,
                 ),

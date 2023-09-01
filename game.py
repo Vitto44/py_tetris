@@ -88,7 +88,6 @@ class Game:
 
     def update_file_scores(self):
         # open file, if not one, create one
-
         try:
             f = open("scores.txt", "r+")
         except FileNotFoundError:
@@ -96,7 +95,6 @@ class Game:
         # write top 3 scores to file
         scores = []
         for line in f:
-            print(line)
             scores.append(int(line))
         scores.append(self.score)
         scores.sort(reverse=True)

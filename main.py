@@ -11,6 +11,7 @@ game_over_font = pygame.font.Font("fonts/Minecraft.ttf", 80)
 
 title_surface = title_font.render("Tetris", True, (0, 255, 0))
 score_surface = normal_text_fond.render("Score: ", True, (0, 255, 0))
+top_score_surface = normal_text_fond.render("Top 3 Scores: ", True, (0, 255, 0))
 game_over_surface = game_over_font.render("GAME OVER", True, (0, 255, 0))
 next_piece_surface = normal_text_fond.render("Next Piece: ", True, (0, 255, 0))
 restart_or_quit_surface = normal_text_fond.render(
@@ -32,6 +33,16 @@ game = Game()
 GAME_UPDATE = pygame.USEREVENT
 pygame.time.set_timer(GAME_UPDATE, 300)
 
+# check scores file and get top 3 scores
+try:
+    f = open("scores.txt", "r+")
+except FileNotFoundError:
+    f = open("scores.txt", "w+")
+# write top 3 scores to file
+scores = []
+for line in f:
+    scores.append(int(line))
+
 # Game Loop
 running = True
 
@@ -52,7 +63,10 @@ while running:
         if game.grid.game_over:
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_SPACE:
+                    scores.append(game.score)
                     game.reset()
+                    scores.sort(reverse=True)
+                    scores = scores[:3]
                 if event.key == pygame.K_q:
                     running = False
         if event.type == GAME_UPDATE and not game.grid.game_over:
@@ -66,21 +80,44 @@ while running:
     )
     # SCORE
     screen.blit(
-        score_surface, (((screen_width * 1.5) - score_surface.get_width()) // 2, 150)
+        score_surface, (((screen_width * 1.5) - score_surface.get_width()) // 2, 120)
     )
     # SCORE NUMBER
-    normal_text_surface = normal_text_fond.render(str(game.score), True, (0, 255, 0))
+    score_number_surface = normal_text_fond.render(str(game.score), True, (0, 255, 0))
     screen.blit(
-        normal_text_surface,
-        (((screen_width * 1.5) - normal_text_surface.get_width()) // 2, 200),
+        score_number_surface,
+        (((screen_width * 1.5) - score_number_surface.get_width()) // 2, 160),
     )
+
+    # TOP SCORES
+    screen.blit(
+        top_score_surface,
+        (((screen_width * 1.5) - top_score_surface.get_width()) // 2, 230),
+    )
+    # TOP SCORES NUMBERS
+    for i in range(len(scores)):
+        screen.blit(
+            normal_text_fond.render(str(scores[i]), True, (0, 255, 0)),
+            (
+                (
+                    (screen_width * 1.5)
+                    - normal_text_fond.render(
+                        str(scores[i]), True, (0, 255, 0)
+                    ).get_width()
+                )
+                // 2,
+                270 + i * 40,
+            ),
+        )
+
     # NEXT PIECE
     screen.blit(
         next_piece_surface,
-        (((screen_width * 1.5) - next_piece_surface.get_width()) // 2, 350),
+        (((screen_width * 1.5) - next_piece_surface.get_width()) // 2, 430),
     )
     # ACUTAL GAME SCREEN
     game.draw(screen)
+
     # GAME OVER
     if game.grid.game_over:
         pygame.draw.rect(screen, (10, 10, 10), game_over_rect)

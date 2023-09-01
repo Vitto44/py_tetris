@@ -9,10 +9,6 @@ class Grid:
         self.game_over = False
         self.grid = [[0 for _ in range(self.width)] for _ in range(self.height)]
 
-    def print_grid(self):
-        for row in self.grid:
-            print(row)
-
     def is_valid(self, piece):
         for cell in piece.cells[piece.rotation]:
             x = cell.x + piece.position_x
