@@ -31,7 +31,7 @@ clock = pygame.time.Clock()
 game = Game()
 
 GAME_UPDATE = pygame.USEREVENT
-pygame.time.set_timer(GAME_UPDATE, 300)
+pygame.time.set_timer(GAME_UPDATE, 600)
 
 # check scores file and get top 3 scores
 try:
@@ -57,6 +57,7 @@ while running:
             if event.key == pygame.K_RIGHT and not game.grid.game_over:
                 game.move_piece("right")
             if event.key == pygame.K_DOWN and not game.grid.game_over:
+                game.score += 1
                 game.move_piece("down")
             if event.key == pygame.K_UP and not game.grid.game_over:
                 game.rotate_piece()
