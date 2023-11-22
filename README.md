@@ -1,6 +1,9 @@
 # PYTHON TETRIS
 
 Simple Tetris game done with [PYGAME](https://www.pygame.org/wiki/GettingStarted)
+
+======
+
 ![Screenshot 2023-11-22 at 01 11 02](https://github.com/Vitto44/py_tetris/assets/89660814/15d6f2fa-2c65-4b95-9e7a-a8d29381b535)
 
 ## Features:
